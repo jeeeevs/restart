@@ -8,13 +8,18 @@ const getConfigFile=(env)=>{
 const getEnv=()=>{
     return getFromEnv('NODE_ENV','develop');
 }
-export const getFromConfig= (name, env)=>{
-    const config = getConfigFile(env);
+export const getFromConfig= (name, config)=>{
     return config[name] || null;
 }
 
+const env = getEnv();
+const config = getConfigFile(env);
+
 export const getPort=()=>{
     const name='PORT';
-    const env = getEnv();
-    return getFromConfig(name, env) || getFromEnv(name, 3001)
+    return getFromConfig(name, config) || getFromEnv(name, 3001)
+}
+export const getUserServiceBaseUrl=()=>{
+    const name='SERVICE_USER_BASE_URL';
+    return getFromConfig(name, config);
 }
